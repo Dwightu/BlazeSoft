@@ -64,13 +64,14 @@ const bookSlice = createAppSlice({
       }
     }),
   }),
-  selectors: {
-    selectBooks: (state) => state.books,
-  },  
+  // selectors: {
+  //   selectBooks: (state) => state.books,
+  // },  
 });
 
 export const { addOneBook, removeBook, updateBook } = bookSlice.actions;
-export const { selectBooks } = bookSlice.selectors;
+// export const { selectBooks } = bookSlice.selectors;
+export const selectBooks = (state: {root: RootState}) => state.root.books;
 
 export const makeStore = () => {
   return configureStore({

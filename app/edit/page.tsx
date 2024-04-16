@@ -29,7 +29,7 @@ export default function addBook() {
   };
   return (
     <>
-      <h1 className="mb-3">Please edit book</h1>
+      <h1 className="mb-3">Please edit book detail</h1>
       <BookDetailForm handleSubmit={handleSubmit} currentBook={currentBook} />
     </>
   );
