@@ -1,9 +1,5 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
-import { combineSlices, configureStore } from "@reduxjs/toolkit";
-// import { counterSlice } from "./features/counter/counterSlice";
-// import { quotesApiSlice } from "./features/quotes/quotesApiSlice";
-// import { book}
-
+import { configureStore } from "@reduxjs/toolkit";
 
 import { createAppSlice } from "@/lib/createAppSlice";
 // import { CounterSliceState } from "../counter/counterSlice";
@@ -19,32 +15,34 @@ export type Book = {
 
 type BookWithoutId = Omit<Book, "id">;
 
-type RootState = {
+export type RootState = {
   books: Book[];
   nextId: number;
 }
 
+export type State = { root: RootState }
+
 const initialState: RootState = {
   books: [
     {
-      name: "Book 1",
-      price: 10,
-      category: "Category 1",
-      description: "Description 1",
+      name: "To Kill a Mockingbird",
+      price: 15.99,
+      category: "Classic Literature",
+      description: "Harper Lee's Pulitzer Prize-winning masterwork of honor and injustice in the deep South — and the heroism of one man in the face of blind and violent hatred.",
       id: 1,
     },
     {
-      name: "Book 2",
-      price: 20,
-      category: "Category 2",
-      description: "Description 2",
+      name: "1984",
+      price: 9.99,
+      category: "Dystopian Fiction",
+      description: "A novel by George Orwell, published in 1949 as a warning against totalitarianism. The chilling dystopia made a deep impression with its portrayal of a totalitarian government that controls thought and denies reality.",
       id: 2,
     },
     {
-      name: "Book 3",
-      price: 30,
-      category: "Category 3",
-      description: "Description 3",
+      name: "Becoming",
+      price: 11.99,
+      category: "Autobiography",
+      description: "In her memoir, a work of deep reflection and mesmerizing storytelling, Michelle Obama invites readers into her world, chronicling the experiences that have shaped her—from her childhood on the South Side of Chicago to her years as an executive balancing the demands of motherhood and work.",
       id: 3,
     },
   ],
@@ -68,44 +66,24 @@ const bookSlice = createAppSlice({
       }
     }),
   }),
-  selectors: {
-    selectBooks: (state) => state.books,
-  },  
+  // selectors: {
+  //   selectBooks: (state) => state.books,
+  // },  
 });
 
 export const { addOneBook, removeBook, updateBook } = bookSlice.actions;
-// export const selectBooks = (state: RootState) => state.root.books;
-export const { selectBooks } = bookSlice.selectors;
+// export const { selectBooks } = bookSlice.selectors;
+export const selectBooks = (state: State) => state.root.books;
 
-
-
-
-// `combineSlices` automatically combines the reducers using
-// their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-// const rootReducer = combineSlices(counterSlice, quotesApiSlice);
-// Infer the `RootState` type from the root reducer
-// export type RootState = ReturnType<typeof rootReducer>;
-
-// `makeStore` encapsulates the store configuration to allow
-// creating unique store instances, which is particularly important for
-// server-side rendering (SSR) scenarios. In SSR, separate store instances
-// are needed for each request to prevent cross-request state pollution.
 export const makeStore = () => {
   return configureStore({
     reducer: {
       root: bookSlice.reducer,
-    },
-    // Adding the api middleware enables caching, invalidation, polling,
-    // and other useful features of `rtk-query`.
-    // middleware: (getDefaultMiddleware) => {
-    //   return getDefaultMiddleware().concat(quotesApiSlice.middleware);
-    // },
+    }
   });
 };
 
-// Infer the return type of `makeStore`
 export type AppStore = ReturnType<typeof makeStore>;
-// Infer the `AppDispatch` type from the store itself
 export type AppDispatch = AppStore["dispatch"];
 export type AppThunk<ThunkReturnType = void> = ThunkAction<
   ThunkReturnType,

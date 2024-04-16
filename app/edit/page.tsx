@@ -4,8 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { FormEvent } from "react";
 import { useRouter, useSearchParams } from 'next/navigation'
 import BookDetailForm from "@/app/components/BookDetailForm";
-import type { Book } from "@/lib/store";
-import { useState } from "react";
+
 
 export default function addBook() {
   const dispatch = useAppDispatch();
@@ -29,6 +28,9 @@ export default function addBook() {
     router.push('/')
   };
   return (
-    <BookDetailForm handleSubmit={handleSubmit} currentBook={currentBook} />
+    <>
+      <h1 className="mb-3">Please edit book detail</h1>
+      <BookDetailForm handleSubmit={handleSubmit} currentBook={currentBook} />
+    </>
   );
 };

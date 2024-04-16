@@ -1,4 +1,5 @@
 "use client";
+
 import { addOneBook } from "@/lib/store";
 import { useAppDispatch } from "@/lib/hooks";
 import { FormEvent } from "react";
@@ -21,8 +22,11 @@ export default function addBookPage() {
     router.push('/')
   };
   return (
-    <BookDetailForm
-      handleSubmit={handleSubmit}
-    />
+    <>
+      <h1 className="mb-3">Please add new book</h1>
+      <BookDetailForm
+        handleSubmit={handleSubmit}
+      />
+    </>
   );
 };
