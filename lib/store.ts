@@ -20,6 +20,8 @@ export type RootState = {
   nextId: number;
 }
 
+export type State = { root: RootState }
+
 const initialState: RootState = {
   books: [
     {
@@ -71,7 +73,7 @@ const bookSlice = createAppSlice({
 
 export const { addOneBook, removeBook, updateBook } = bookSlice.actions;
 // export const { selectBooks } = bookSlice.selectors;
-export const selectBooks = (state: {root: RootState}) => state.root.books;
+export const selectBooks = (state: State) => state.root.books;
 
 export const makeStore = () => {
   return configureStore({
