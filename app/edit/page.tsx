@@ -23,7 +23,7 @@ export default function addBook() {
       price: parseFloat(data.price as string) as number,
       category: data.category as string,
       description: data.description as string,
-      id: 1,
+      id: Number(id),
     }));
     router.push('/')
   };
